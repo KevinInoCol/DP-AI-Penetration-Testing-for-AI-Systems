@@ -1,0 +1,18 @@
+meta:
+  name: databot-llm-local
+  version: 1.0.0
+  description: Configuración del LLM y memoria para el agente DataBot (DATAPATH) — variante LLM local.
+  updated_at: 2026-06-05
+  author: Ing. Kevin Inofuente Colque - DataPath
+
+llm:
+  # ⚠️ provider, model, base_url y api_key NO van aquí: viven en .env
+  #    (LLM_PROVIDER, LLM_MODEL, LLM_BASE_URL, LLM_API_KEY) para poder alternar
+  #    entre OpenAI / LMStudio / Ollama sin defaults silenciosos que usen
+  #    OpenAI por accidente. Ver .env.example.
+  temperature: 0.7
+  # max_tokens, top_p, timeout — comentados hasta que se necesiten
+
+memory:
+  token_limit: 3000
+  table_name: chat_history   # tabla del histórico en PostgreSQL

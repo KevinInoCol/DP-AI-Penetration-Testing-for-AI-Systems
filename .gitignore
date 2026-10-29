@@ -1,5 +1,5 @@
-# ── Las dos carpetas del agente (TramiBot) son submódulos: cada una tiene su propio
-#    repositorio y aquí solo se guarda el commit al que apuntan (ver .gitmodules). ──
+# ── Las dos carpetas del agente (TramiBot) se versionan aquí como archivos normales
+#    (copia de lo commiteado en sus propios repositorios). ──
 # Clon de referencia del repo de DeepTeam: se instala con pip, no se versiona aquí.
 Sistema-de-Testing-de-Seguridad/deepteam/
 presentacion/

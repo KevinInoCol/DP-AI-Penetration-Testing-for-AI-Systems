@@ -1,6 +1,0 @@
-[submodule "LangChain-AgenteIA-MultiTool-Seguridad"]
-	path = LangChain-AgenteIA-MultiTool-Seguridad
-	url = https://github.com/KevinInoCol/DP-AI-Project-LangChain-Agente-con-Seguridad-y-Langfuse.git
-[submodule "LangChain-AgenteIA-MultiTool-Seguridad-LLMLocal"]
-	path = LangChain-AgenteIA-MultiTool-Seguridad-LLMLocal
-	url = https://github.com/KevinInoCol/Project-LangChain-Agent-LMStudio-Gemma-4.git

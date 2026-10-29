@@ -1,0 +1,1 @@
+conda activate LangChain-Wpp-Chatwoot-LLMLocal
