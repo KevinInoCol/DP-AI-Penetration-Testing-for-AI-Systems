@@ -3,7 +3,24 @@
 Framework de red teaming para agentes LLM, construido en el Programa AI Engineer
 de DataPath. Dos motores complementarios y un dashboard que los une.
 
-Todo vive bajo `Sistema-de-Testing-de-Seguridad/`:
+El repositorio tiene tres carpetas:
+
+| Carpeta | Qué es |
+|---|---|
+| `Sistema-de-Testing-de-Seguridad/` | El framework de red teaming (detalle abajo). |
+| `LangChain-AgenteIA-MultiTool-Seguridad/` | **TramiBot**, el agente objetivo: asistente de trámites del Municipio de Girardota con RAG, guardrail de 8 capas, memoria en Postgres y Langfuse. Interfaces: Chatwoot y web en React. Submódulo de [DP-AI-Project-LangChain-Agente-con-Seguridad-y-Langfuse](https://github.com/KevinInoCol/DP-AI-Project-LangChain-Agente-con-Seguridad-y-Langfuse). |
+| `LangChain-AgenteIA-MultiTool-Seguridad-LLMLocal/` | El mismo agente con un LLM local (LM Studio / Ollama, Gemma). Submódulo de [Project-LangChain-Agent-LMStudio-Gemma-4](https://github.com/KevinInoCol/Project-LangChain-Agent-LMStudio-Gemma-4). |
+
+Las dos carpetas del agente son submódulos: cada una conserva su propio
+repositorio e historial. Para clonar todo de una vez:
+
+```bash
+git clone --recurse-submodules https://github.com/KevinInoCol/DP-AI-Penetration-Testing-for-AI-Systems.git
+# si ya lo clonaste sin submódulos:
+git submodule update --init
+```
+
+El framework vive bajo `Sistema-de-Testing-de-Seguridad/`:
 
 | Carpeta | Qué es |
 |---|---|
