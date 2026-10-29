@@ -1,7 +1,7 @@
 """
 Integración del Agente IA con un Frontend web (React + Vite)
-API REST para que la interfaz web (carpeta Frontend_React/, fuera de este repo,
-al lado de la carpeta del agente) converse con TramiBot.
+API REST para que la interfaz web (carpeta Frontend_React/, al lado de la carpeta
+del agente) converse con TramiBot.
 
 Es la segunda interfaz del mismo agente: usa el mismo chat_con_agente que el
 webhook de Chatwoot (guardrail de 8 capas + RAG + memoria + Langfuse), pero sin

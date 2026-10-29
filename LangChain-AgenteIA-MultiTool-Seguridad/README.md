@@ -226,7 +226,7 @@ npm install
 npm run dev
 ```
 
-El frontend vive **fuera de este repo**, en la carpeta `Frontend_React/` al lado de la del agente, dentro de [DP-AI-Penetration-Testing-for-AI-Systems](https://github.com/KevinInoCol/DP-AI-Penetration-Testing-for-AI-Systems). Para producción, `npm run build` genera `Frontend_React/dist/` y `main_frontend_react.py` lo sirve en la raíz del puerto 8001 (un solo proceso); si está en otra ruta, indícala con `FRONTEND_DIST_DIR`.
+El frontend vive fuera de esta carpeta, en `Frontend_React/` al lado de la del agente (raíz de [DP-AI-Penetration-Testing-for-AI-Systems](https://github.com/KevinInoCol/DP-AI-Penetration-Testing-for-AI-Systems)). Para producción, `npm run build` genera `Frontend_React/dist/` y `main_frontend_react.py` lo sirve en la raíz del puerto 8001 (un solo proceso); si está en otra ruta, indícala con `FRONTEND_DIST_DIR`.
 
 | Método | Ruta | Uso |
 |--------|------|-----|

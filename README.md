@@ -8,12 +8,11 @@ El repositorio tiene cuatro carpetas:
 | Carpeta | Qué es |
 |---|---|
 | `Sistema-de-Testing-de-Seguridad/` | El framework de red teaming (detalle abajo). |
-| `LangChain-AgenteIA-MultiTool-Seguridad/` | **TramiBot**, el agente objetivo: asistente de trámites del Municipio de Girardota con RAG, guardrail de 8 capas, memoria en Postgres y Langfuse. Interfaces: Chatwoot y web en React. Repo propio: [DP-AI-Project-LangChain-Agente-con-Seguridad-y-Langfuse](https://github.com/KevinInoCol/DP-AI-Project-LangChain-Agente-con-Seguridad-y-Langfuse). |
+| `LangChain-AgenteIA-MultiTool-Seguridad/` | **TramiBot**, el agente objetivo: asistente de trámites del Municipio de Girardota con RAG, guardrail de 8 capas, memoria en Postgres y Langfuse. Interfaces: Chatwoot y web en React. |
 | `Frontend_React/` | Interfaz web de chat (React + Vite + TypeScript) para TramiBot. Habla con `main_frontend_react.py` del agente (puerto 8001) por `/api`. Arranque: `python main_frontend_react.py` en la carpeta del agente y `npm install && npm run dev` aquí. |
 | `LangChain-AgenteIA-MultiTool-Seguridad-LLMLocal/` | El mismo agente con un LLM local (LM Studio / Ollama, Gemma). Repo propio: [Project-LangChain-Agent-LMStudio-Gemma-4](https://github.com/KevinInoCol/Project-LangChain-Agent-LMStudio-Gemma-4). |
 
-Las dos carpetas del agente están aquí como archivos normales (un `git clone`
-basta) y además tienen su propio repositorio, enlazado en la tabla.
+Todo se versiona en este repositorio: un `git clone` trae las cuatro carpetas.
 
 El framework vive bajo `Sistema-de-Testing-de-Seguridad/`:
 
