@@ -81,7 +81,7 @@ python-dotenv             # Variables de entorno (.env)
 # ============================================
 # OBSERVABILIDAD Y MONITOREO
 # ============================================
-langfuse>=4.0.0           # Tracing, observabilidad y monitoreo de LLMs
+langfuse>=4.0.0,<5        # Tracing y observabilidad. <5: la v5 eliminó set_current_trace_io
 
 # ============================================
 # GUARDRAILS DE SEGURIDAD
