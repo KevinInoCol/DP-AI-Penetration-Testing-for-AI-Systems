@@ -3,12 +3,13 @@
 Framework de red teaming para agentes LLM, construido en el Programa AI Engineer
 de DataPath. Dos motores complementarios y un dashboard que los une.
 
-El repositorio tiene tres carpetas:
+El repositorio tiene cuatro carpetas:
 
 | Carpeta | Qué es |
 |---|---|
 | `Sistema-de-Testing-de-Seguridad/` | El framework de red teaming (detalle abajo). |
 | `LangChain-AgenteIA-MultiTool-Seguridad/` | **TramiBot**, el agente objetivo: asistente de trámites del Municipio de Girardota con RAG, guardrail de 8 capas, memoria en Postgres y Langfuse. Interfaces: Chatwoot y web en React. Submódulo de [DP-AI-Project-LangChain-Agente-con-Seguridad-y-Langfuse](https://github.com/KevinInoCol/DP-AI-Project-LangChain-Agente-con-Seguridad-y-Langfuse). |
+| `Frontend_React/` | Interfaz web de chat (React + Vite + TypeScript) para TramiBot. Habla con `main_frontend_react.py` del agente (puerto 8001) por `/api`. Arranque: `python main_frontend_react.py` en la carpeta del agente y `npm install && npm run dev` aquí. |
 | `LangChain-AgenteIA-MultiTool-Seguridad-LLMLocal/` | El mismo agente con un LLM local (LM Studio / Ollama, Gemma). Submódulo de [Project-LangChain-Agent-LMStudio-Gemma-4](https://github.com/KevinInoCol/Project-LangChain-Agent-LMStudio-Gemma-4). |
 
 Las dos carpetas del agente son submódulos: cada una conserva su propio
