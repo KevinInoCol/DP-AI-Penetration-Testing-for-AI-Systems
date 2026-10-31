@@ -42,9 +42,6 @@ function aConfig(f: Form): Record<string, unknown> {
 
 const TIPOS: { id: Tipo; nombre: string; desc: string }[] = [
   { id: 'http', nombre: 'Endpoint HTTP', desc: 'Un agente desplegado detrás de una URL (FastAPI, n8n, cualquier API). No hace falta el código. Es el caso normal en el equipo.' },
-  { id: 'agente', nombre: 'Agente Python', desc: 'Un agente importable desde este servidor: ruta del proyecto, módulo y función texto→texto. Permite medir el guardrail y el LLM por separado.' },
-  { id: 'guardrail', nombre: 'Solo guardrail', desc: 'Solo el filtro de entrada de un proyecto Python. Rápido y gratis; sirve para Red Turing, no para DeepTeam.' },
-  { id: 'simulado', nombre: 'Simulado', desc: 'Objetivo de mentira para verificar que el arnés detecta. Sin coste.' },
 ]
 
 export default function Objetivos() {
