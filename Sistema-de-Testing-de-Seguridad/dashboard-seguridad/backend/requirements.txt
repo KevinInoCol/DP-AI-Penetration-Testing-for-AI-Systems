@@ -8,6 +8,9 @@ openai>=1.76
 # Motor de DeepTeam (Confident AI). sentry-sdk lo importa pero no lo declara.
 deepteam>=1.0.9
 sentry-sdk>=2.0
+# Modelos de Vertex AI (Gemini y Claude) como adversario o juez de DeepTeam.
+anthropic[vertex]>=0.70
+google-genai>=1.0
 
 # Red Turing se importa desde ../../Red-Turing (mismas dependencias: PyYAML,
 # python-dotenv, requests, openai). Para atacar un objetivo de tipo `agente`

@@ -121,7 +121,7 @@ export default function DeepTeamNueva() {
           </section>
 
           <section className="panel">
-            <h3>Modelos</h3><p className="desc">Los dos se pagan con tu clave de OpenAI. El agente atacado usa su propio modelo por su cuenta.</p>
+            <h3>Modelos</h3><p className="desc">Los gpt-* se pagan con tu clave de OpenAI; los Gemini y Claude, con el proyecto de Vertex AI de Datapath. El agente atacado usa su propio modelo por su cuenta.</p>
             <div className="doble">
               <SelectorModelo rot="Modelo adversario" ayuda="Genera y reescribe los payloads (DeepTeam lo llama simulator)." valor={cfg.modelo_adversario} onChange={v => setCfg({ ...cfg, modelo_adversario: v })} modelos={cat.modelos} />
               <SelectorModelo rot="Modelo juez" ayuda="Evalúa cada respuesta de TramiBot con 0 o 1 y una razón." valor={cfg.modelo_juez} onChange={v => setCfg({ ...cfg, modelo_juez: v })} modelos={cat.modelos} />
@@ -181,7 +181,7 @@ export default function DeepTeamNueva() {
                 <dt>Llamadas al adversario</dt><dd>≈ {est.llamadas_adversario_aprox} · <code>{cfg.modelo_adversario}</code></dd>
                 <dt>Llamadas al juez</dt><dd>{est.llamadas_juez} · <code>{cfg.modelo_juez}</code></dd>
               </dl>
-              <div className="coste">Todo son llamadas reales con tu clave de OpenAI y quedarán trazas en Langfuse. Referencia: 5 casos con gpt-4o-mini costaron ≈ $0.15 de DeepTeam más TramiBot.</div>
+              <div className="coste">Todo son llamadas reales (OpenAI o Vertex AI, según el modelo) y quedarán trazas en Langfuse. Referencia: 5 casos con gpt-4o-mini costaron ≈ $0.15 de DeepTeam más TramiBot.</div>
             </>
           ) : <div className="nota">Elige al menos una vulnerabilidad y un método.</div>}
           {error && <div className="error">{error}</div>}

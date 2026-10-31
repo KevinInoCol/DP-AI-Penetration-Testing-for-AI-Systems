@@ -51,7 +51,72 @@ MODELOS_PRESET = [
     {"id": "gpt-4.1", "nombre": "gpt-4.1", "nota": "Recomendado como juez: más criterio, más caro."},
     {"id": "gpt-4o", "nombre": "gpt-4o", "nota": "Alternativa sólida como juez."},
     {"id": "o4-mini", "nombre": "o4-mini", "nota": "Razonador; lento y caro para simular, fino para juzgar casos difíciles."},
+    # Vertex AI (proyecto de Datapath, cuenta de servicio en VERTEX_CREDENTIALS).
+    {"id": "gemini-3.1-pro-preview", "nombre": "Gemini 3.1 Pro (Vertex)", "nota": "El Gemini con más criterio. Buen juez."},
+    {"id": "gemini-3.8-flash", "nombre": "Gemini 3.8 Flash (Vertex)", "nota": "El Flash más reciente: rápido y barato, buen adversario."},
+    {"id": "gemini-3.5-flash", "nombre": "Gemini 3.5 Flash (Vertex)", "nota": "Flash estable; adversario barato."},
+    {"id": "gemini-3.1-flash-lite", "nombre": "Gemini 3.1 Flash-Lite (Vertex)", "nota": "El más barato. Solo para pruebas rápidas."},
+    {"id": "claude-opus-5-5", "nombre": "Claude Opus 5.5 (Vertex)", "nota": "El Claude más capaz. Juez fino para casos difíciles."},
+    {"id": "claude-sonnet-5-5", "nombre": "Claude Sonnet 5.5 (Vertex)", "nota": "Equilibrio entre criterio y coste. Buen juez y buen adversario."},
+    {"id": "claude-haiku-5-5", "nombre": "Claude Haiku 5.5 (Vertex)", "nota": "Rápido y barato. Adversario para corridas grandes."},
 ]
+
+# Precio por token (USD) de los Claude en Vertex; DeepEval lo exige para modelos
+# que no conoce. Los Gemini se registran a 0: el coste real se ve en GCP.
+_PRECIO_CLAUDE = {
+    "claude-opus-5-5": (4.00e-6, 20.00e-6),
+    "claude-sonnet-5-5": (2.00e-6, 10.00e-6),
+    "claude-haiku-5-5": (0.10e-6, 0.50e-6),
+}
+
+
+def _credenciales_vertex():
+    """Proyecto, región y llave de la cuenta de servicio de Vertex, desde el entorno."""
+    proyecto = os.getenv("VERTEX_PROJECT", "")
+    region = os.getenv("VERTEX_LOCATION", "global")
+    ruta = os.getenv("VERTEX_CREDENTIALS", "")
+    if not proyecto or not ruta or not Path(ruta).is_file():
+        raise EnvironmentError("Faltan VERTEX_PROJECT o VERTEX_CREDENTIALS (ruta a la llave JSON) en backend/.env para usar modelos de Vertex.")
+    return proyecto, region, ruta
+
+
+def resolver_modelo(nombre: str):
+    """
+    Lo que DeepTeam recibe como modelo. Los de OpenAI viajan como texto (DeepEval
+    los resuelve con OPENAI_API_KEY); los de Vertex como objetos de DeepEval
+    autenticados con la cuenta de servicio, sin tocar las ADC globales.
+    """
+    if nombre.startswith("gemini"):
+        from deepeval.models import GeminiModel
+
+        proyecto, region, ruta = _credenciales_vertex()
+        return GeminiModel(
+            model=nombre, project=proyecto, location=region, use_vertexai=True,
+            service_account_key=json.loads(Path(ruta).read_text(encoding="utf-8")),
+            cost_per_input_token=0.0, cost_per_output_token=0.0,
+        )
+    if nombre.startswith("claude"):
+        return _ClaudeVertex(nombre)
+    return nombre
+
+
+def _ClaudeVertex(nombre: str):
+    from anthropic import AnthropicVertex, AsyncAnthropicVertex
+    from deepeval.models import AnthropicModel
+    from google.oauth2 import service_account
+
+    proyecto, region, ruta = _credenciales_vertex()
+    cred = service_account.Credentials.from_service_account_file(ruta, scopes=["https://www.googleapis.com/auth/cloud-platform"])
+
+    class ClaudeVertex(AnthropicModel):
+        """AnthropicModel de DeepEval, pero con el cliente de Vertex en vez de la API de Anthropic."""
+
+        def load_model(self, async_mode: bool = False):
+            cls = AsyncAnthropicVertex if async_mode else AnthropicVertex
+            return cls(project_id=proyecto, region=region, credentials=cred)
+
+    entrada, salida = _PRECIO_CLAUDE.get(nombre, (0.0, 0.0))
+    return ClaudeVertex(model=nombre, api_key="vertex", cost_per_input_token=entrada, cost_per_output_token=salida)
 
 CONFIG_POR_DEFECTO = {
     "equipo": "LLM Red Teaming Framework",
@@ -617,7 +682,7 @@ class RunnerDeepTeam:
             objetivo = construir_objetivo_deepteam(p["objetivo"], p["con_guardrail"])
             callback = construir_callback(objetivo, ev.contador)
             vulns = _construir_vulnerabilidades(p["vulnerabilidades"], p["proposito"])
-            ataques = _construir_ataques(p["ataques"], p["en_espanol"], p["modelo_adversario"])
+            ataques = _construir_ataques(p["ataques"], p["en_espanol"], resolver_modelo(p["modelo_adversario"]))
             ev.fase = "corriendo"
 
             evaluacion = red_team(
@@ -625,8 +690,8 @@ class RunnerDeepTeam:
                 vulnerabilities=vulns,
                 attacks=ataques,
                 attacks_per_vulnerability_type=p["ataques_por_tipo"],
-                simulator_model=p["modelo_adversario"],
-                evaluation_model=p["modelo_juez"],
+                simulator_model=resolver_modelo(p["modelo_adversario"]),
+                evaluation_model=resolver_modelo(p["modelo_juez"]),
                 target_purpose=p["proposito"],
                 max_concurrent=p["max_concurrentes"],
                 ignore_errors=True,
