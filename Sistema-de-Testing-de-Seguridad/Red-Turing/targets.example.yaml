@@ -51,6 +51,12 @@ targets:
     modulo: "guardrails.input_guardrail"
     funcion: "verificar_input_guardrail"
 
+  guardrail-model-armor:
+    tipo: guardrail
+    ruta_proyecto: "../../LangChain-AgenteIA-MultiTool-Seguridad-Model-Armor"
+    modulo: "guardrails.model_armor_guardrail"
+    funcion: "verificar_input_guardrail"
+
   # Ejemplo de objetivo remoto. El token NUNCA se escribe aquí: se nombra la
   # variable de entorno que lo contiene y Red Turing la lee del entorno.
   api-produccion:
