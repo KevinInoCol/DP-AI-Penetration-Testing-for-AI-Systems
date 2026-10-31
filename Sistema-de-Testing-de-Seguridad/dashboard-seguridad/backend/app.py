@@ -7,7 +7,7 @@ elección de modelo adversario y juez. El frontend React compilado se sirve desd
 `frontend/dist` cuando existe; en desarrollo Vite hace proxy a /api.
 
 Ejecutar (con el intérprete conda del agente, que tiene LangChain y DeepTeam):
-    /opt/anaconda3/envs/DP-LangChain-Seguridad/bin/python -m uvicorn app:app --host 127.0.0.1 --port 8740
+    /opt/anaconda3/envs/LangChain-Seguridad-LLMs/bin/python -m uvicorn app:app --host 127.0.0.1 --port 8010
 
 Solo escucha en localhost y rechaza cualquier petición cuyo Host u Origin no
 sean locales, por las mismas razones que el dashboard original: los informes
@@ -68,7 +68,7 @@ from redturing.dashboard.server import (  # noqa: E402
 import deepteam_runner as dt  # noqa: E402
 import objetivos as reg  # noqa: E402
 
-PUERTO = 8740
+PUERTO = 8010
 app = FastAPI(title="Dashboard de seguridad · Red Turing + DeepTeam", docs_url=None, redoc_url=None)
 
 lanzador = Lanzador(DIRECTORIO_INFORMES)
